@@ -1,0 +1,135 @@
+Category,Subcategory,Item,Qty,UOM,Ticked
+Kitchen,Masala,Haldi,250,g,0
+Kitchen,Masala,Dhaniya,250,g,0
+Kitchen,Masala,Mircha Theekha Lal,50,g,0
+Kitchen,Masala,Mircha Kasmiri Lal,1,g,0
+Kitchen,Masala,Sabji Masala,1,g,0
+Kitchen,Masala,Garam Masala,1,g,0
+Kitchen,Masala,PavBhaji Masala,1,g,0
+Kitchen,Masala,Chola Masala,1,g,0
+Kitchen,Masala,Back Papper Poweder,1,g,0
+Kitchen,Masala,Cornfloor,1,g,0
+Kitchen,Masala,Aamchoor Powder,1,g,0
+Kitchen,Masala,Chat Masala,1,g,0
+Kitchen,Masala,Heeng,1,g,0
+Kitchen,Masala,Sambhar Masala,1,g,0
+Kitchen,Masala,Methi,1,g,0
+Kitchen,Masala,Jeera,1,g,0
+Kitchen,Masala,Ajwain,1,g,0
+Kitchen,Masala,Sauff,1,g,0
+Kitchen,Masala,mangrail,1,g,0
+Kitchen,Masala,Rai,1,g,0
+Kitchen,Masala,DalChini,1,g,0
+Kitchen,Masala,Badi Elichy,1,g,0
+Kitchen,Masala,Choti Elichy,1,g,0
+Kitchen,Masala,Kali Mirch,1,g,0
+Kitchen,Masala,Laoung,1,g,0
+Kitchen,Masala,Tej Patta,1,g,0
+Kitchen,Masala,Sukha Mircha,1,g,0
+Kitchen,Masala,Kasoori methi,1,g,0
+Kitchen,Masala,Paneer masala,1,g,0
+Kitchen,Daal,Chana Dal,1,kg,0
+Kitchen,Daal,Masoor,1,kg,0
+Kitchen,Daal,Arhar,1,kg,0
+Kitchen,Daal,Toota Urad,1,kg,0
+Kitchen,Daal,Toota Moong Dal ,1,kg,0
+Kitchen,Daal,Mix Dal,1,kg,0
+Kitchen,Daal,Saffed Urad (Dhoyi),1,kg,0
+Kitchen,Daal,Khada Urad Black,1,kg,0
+Kitchen,Daal,Rajma,1,kg,0
+Kitchen,Daal,Kabuli Chana,1,kg,0
+Kitchen,Daal,Saffed Matar,1,kg,0
+Kitchen,Daal,Kala Chana,1,kg,0
+Kitchen,Daal,Moongfali,1,kg,0
+Kitchen,Daal,Soya been Whole,1,kg,0
+Kitchen,Salt,Salt,1,kg,0
+Kitchen,Salt,Black Salt,1,g,0
+Kitchen,Packets,Sooji,1,kg,0
+Kitchen,Packets,Besan,1,kg,0
+Kitchen,Packets,Daliya,1,kg,0
+Kitchen,Packets,Poha,1,kg,0
+Kitchen,Packets,Maida,1,kg,0
+Kitchen,Dry Fruits,Makhana,1,g,0
+Kitchen,Dry Fruits,Badaam,1,g,0
+Kitchen,Dry Fruits,Kishmish,1,g,0
+Kitchen,Dry Fruits,Kaju,1,g,0
+Ready Made,Packets,Macronee,1,g,0
+Ready Made,Packets,Maggie,1,pack,0
+Ready Made,Packets,Rosted Chana,1,g,0
+Ready Made,Packets,Namkeen,1,pack,0
+Ready Made,Packets,Biskut,1,pack,0
+Ready Made,Packets,Chaomin,1,pack,0
+Ready Made,Packets,popcorn,1,pack,0
+Ready Made,Souce,katchup,1,bottle,0
+Ready Made,Souce,Red Chilli Souce,1,bottle,0
+Ready Made,Souce,Green Chilli Souce,1,bottle,0
+Ready Made,Souce,Soya Souce,1,bottle,0
+Ready Made,Souce,Vinegar,1,bottle,0
+Ready Made,Souce,White Mayonees,1,bottle,0
+Ready Made,Bottels,Jam,1,bottle,0
+Ready Made,Bottels,Achar,1,bottle,0
+Ready Made,Bottels,Honey,1,g,0
+Ready Made,Packets,Sugar,1,kg,0
+Ready Made,Packets,Rice,1,kg,0
+Ready Made,Packets,Aata,1,kg,0
+Ready Made,Packets,Chai,1,g,0
+Ready Made,Packets,Coffee,1,g,0
+Ready Made,Packets,Green tea,1,pack,0
+Ready Made,Packets,Cornflakes,1,pack,0
+Ready Made,Packets,Nutrela,1,pack,0
+Ready Made,Packets,Seviyaan,1,pack,0
+Ready Made,Packets,Cornflakes chocolate,1,pack,0
+Ready Made,Packets,Refined Oil,1,l,0
+Ready Made,Packets,Sarso Oil,1,l,0
+Ready Made,Packets,Butter,1,g,0
+Ready Made,Packets,Boondi,1,pack,0
+Ready Made,Packets,Banana chips,1,pack,0
+Cleaning,Cleaning,Colin,1,ml,0
+Cleaning,Cleaning,phenyle,1,l,0
+Cleaning,Kitchen,Vim Bar,1,pcs,0
+Cleaning,Kitchen,Vim Liqud,1,ml,0
+Cleaning,Kitchen,Kitchen master Cleaner,1,ml,0
+Cleaning,Kitchen,Scrub,1,pcs,0
+Cleaning,Toilet,Harpic,1,l,0
+Cleaning,Toilet,Odonil,1,pcs,0
+Cleaning,Toilet,Handwash,1,l,0
+Cleaning,Wash,Shapoo,1,box,0
+Cleaning,Toilet,Soap,1,pcs,0
+Cleaning,Toilet,Body Wash,1,ml,0
+Cleaning,Cleaning,Jhadoo,1,pcs,0
+Cleaning,Kitchen,Kitchen Cleaning Cloth,1,pcs,0
+Cleaning,Kitchen,Kitchen Roll,1,pcs,0
+Cleaning,Cleaning,Tissue,1,pcs,0
+Cleaning,Kitchen,Foil paper ,1,pcs,0
+Cleaning,Wash,Surf,1,kg,0
+Cleaning,Wash,Liquid Surf,1,l,0
+Cleaning,Wash,Vanish,1,ml,0
+Cleaning,Wash,Vanish Liquid,1,ml,0
+Cleaning,Wash,Aala,1,ml,0
+Cleaning,Wash,Easy,1,ml,0
+Cleaning,Toilet,Dove body wash,1,box,0
+Cleaning,Tooth,Chichi mix fruit toothpaste,1,pcs,0
+Cleaning,Tooth,Colgate maxfresh,1,pcs,0
+Cleaning,Tooth,Tooth paste,1,pcs,0
+Cleaning,Tooth,Tooth brush,1,pcs,0
+Cleaning,Kitchen,Foil Paper,1,pcs,0
+Cleaning,Tooth,Synsodyne Toothpase,1,pcs,0
+Extra,Extra,Allout,1,pcs,0
+Extra,Pooja,Machis,1,pcs,0
+Extra,Pooja,Foolbatti,1,pcs,0
+Extra,Pooja,Til Ka Tel,1,ml,0
+Extra,Pooja,Kesar Chandan agarbatti,1,pcs,0
+Extra,Lotion ,Lotion ,1,ml,0
+Extra,Lotion,Lotion Nishi,1,ml,0
+Cleaning,Tooth,Colgate maxfresh,1,pcs,0
+Cleaning,Tooth,Tooth paste,1,pcs,0
+Cleaning,Tooth,Tooth brush,1,pcs,0
+Cleaning,Kitchen,Foil Paper,1,pcs,0
+Cleaning,Tooth,Synsodyne Toothpase,1,pcs,0
+Extra,Extra,Allout,1,pcs,0
+Extra,Pooja,Machis,1,pcs,0
+Extra,Pooja,Foolbatti,1,pcs,0
+Extra,Pooja,Til Ka Tel,1,ml,0
+Extra,Pooja,Kesar Chandan agarbatti,1,pcs,0
+Extra,Lotion ,Lotion ,1,ml,0
+Extra,Lotion,Lotion Nishi,1,ml,0

@@ -8,6 +8,27 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ShopList">
 <title>ShopList</title>
+<!-- Add these tags inside <head> of your index.html -->
+
+<link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ShopList">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="theme-color" content="#0e7490">
+
+<!-- Add this script just before </body> -->
+
+<script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('/sw.js')
+        .then(r=>console.log('SW registered:',r.scope))
+        .catch(e=>console.error('SW failed:',e));
+    });
+  }
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
