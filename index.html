@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#4f46e5">
+<meta name="theme-color" content="#0e7490">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ShopList">
@@ -22,42 +22,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 #app{display:flex;flex-direction:column;min-height:100vh}
 header{background:var(--primary);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(14,116,144,.35)}
 header h1{font-size:18px;font-weight:600;letter-spacing:.3px}
-.header-actions{display:flex;gap:8px}
-.icon-btn{background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .15s}
+.header-actions{display:flex;gap:6px}
+.icon-btn{background:rgba(255,255,255,.15);border:none;color:#fff;width:34px;height:34px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;transition:background .15s;position:relative}
 .icon-btn:hover{background:rgba(255,255,255,.25)}
+.icon-btn .tip{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);background:#1a2e35;color:#fff;font-size:10px;white-space:nowrap;padding:3px 7px;border-radius:4px;pointer-events:none;opacity:0;transition:opacity .2s}
+.icon-btn:hover .tip{opacity:1}
 #tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:57px;z-index:99}
 .tab{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
 .tab.active{color:var(--primary);border-bottom-color:var(--primary)}
 #content{flex:1;overflow-y:auto;padding:12px}
 
-/* Cards */
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
 .card-header{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:background .1s}
 .card-header:hover{background:#f9fafb}
 .card-title{font-size:14px;font-weight:600;flex:1}
-.card-subtitle{font-size:12px;color:var(--text2)}
 .chevron{font-size:12px;color:var(--text3);transition:transform .2s}
 .chevron.open{transform:rotate(90deg)}
 .card-body{border-top:1px solid var(--border);padding:10px 14px}
 .collapsed{display:none}
 
-/* Buttons */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:500;transition:all .15s}
 .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
 .btn-outline{background:#fff;color:var(--primary);border:1px solid var(--primary)}.btn-outline:hover{background:var(--primary-light)}
-.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{background:#b91c1c}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{background:#92400e}
 .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:#f3f4f6}
 .btn-sm{padding:5px 10px;font-size:12px}
 .btn-xs{padding:3px 8px;font-size:11px;border-radius:6px}
 .add-row{padding:8px 0 4px;display:flex;justify-content:center}
 
-/* Inputs */
 input,select{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border .15s}
-input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.1)}
-.input-row{display:flex;gap:8px;align-items:center;margin-top:8px}
-.input-row input{flex:1}
+input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(14,116,144,.1)}
 
-/* Items */
 .item-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f3f4f6}
 .item-row:last-child{border-bottom:none}
 .item-check{width:18px;height:18px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
@@ -67,16 +62,13 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(7
 .item-delete:hover{opacity:1;background:var(--danger-light)}
 .checked-label{text-decoration:line-through;color:var(--text3)}
 
-/* Search */
 .search-wrap{position:relative;margin-bottom:12px}
 .search-wrap input{padding-left:36px}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
 
-/* Badge */
 .badge{background:var(--primary);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center}
-.badge-green{background:var(--success)}
+.badge-green{background:#0f766e}
 
-/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:flex-end;justify-content:center}
 .modal{background:#fff;border-radius:16px 16px 0 0;padding:20px;width:100%;max-width:480px;animation:slideUp .2s ease}
 @keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -85,7 +77,6 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(7
 .modal-row{display:flex;gap:8px;margin-bottom:10px}
 .modal-row input,.modal-row select{flex:1}
 
-/* Category grid */
 .cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
 .cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);text-align:center}
 .cat-card:hover{border-color:var(--primary);background:var(--primary-light)}
@@ -93,40 +84,34 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(7
 .cat-card .cat-name{font-size:13px;font-weight:600}
 .cat-card .cat-count{font-size:11px;color:var(--text3);margin-top:2px}
 
-/* Shopping list */
 .sl-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f3f4f6}
 .sl-item:last-child{border-bottom:none}
-.sl-check{width:20px;height:20px;accent-color:var(--success);cursor:pointer;flex-shrink:0}
+.sl-check{width:20px;height:20px;accent-color:#0f766e;cursor:pointer;flex-shrink:0}
 .sl-label{flex:1;font-size:14px}
 .sl-qty{font-size:12px;color:var(--text2);margin-left:4px}
 .sl-done .sl-label{text-decoration:line-through;color:var(--text3)}
 
-/* Empty state */
 .empty{text-align:center;padding:40px 20px;color:var(--text3)}
 .empty .empty-icon{font-size:40px;margin-bottom:10px}
 .empty p{font-size:13px}
 
-/* Subcategory section */
 .subcat-section{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .subcat-header{padding:10px 12px;background:#f9fafb;display:flex;align-items:center;gap:8px;cursor:pointer}
 .subcat-header:hover{background:#f3f4f6}
 .subcat-title{font-size:13px;font-weight:600;flex:1}
 .subcat-body{padding:6px 12px}
 
-/* Top action bar */
 .action-bar{display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
 .spacer{flex:1}
-
-/* Section label */
 .section-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;padding:6px 0 4px}
-
-/* Inline form */
-.inline-form{background:#f9fafb;border-radius:8px;padding:10px;margin-top:6px;border:1px solid var(--border)}
-
-/* Selected view */
-#master-detail{display:none}
-#master-grid{display:block}
 .back-btn{display:flex;align-items:center;gap:6px;color:var(--primary);background:none;border:none;cursor:pointer;font-size:13px;font-weight:500;padding:4px 0;margin-bottom:10px}
+
+/* export menu */
+.export-menu{position:absolute;top:40px;right:0;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:300;min-width:190px;overflow:hidden}
+.export-menu-item{padding:11px 16px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--text)}
+.export-menu-item:hover{background:var(--primary-light);color:var(--primary)}
+.export-menu-sep{height:1px;background:var(--border)}
+.export-wrap{position:relative}
 </style>
 </head>
 <body>
@@ -134,8 +119,25 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(7
   <header>
     <h1 id="header-title">🛒 ShopList</h1>
     <div class="header-actions">
-      <button class="icon-btn" id="btn-import" title="Import CSV">⬆</button>
-      <button class="icon-btn" id="btn-export" title="Export CSV">⬇</button>
+      <div class="export-wrap">
+        <button class="icon-btn" id="btn-import-toggle" title="Import">⬆<span class="tip">Import</span></button>
+      </div>
+      <div class="export-wrap">
+        <button class="icon-btn" id="btn-export-toggle">⬇<span class="tip">Export</span></button>
+        <div class="export-menu" id="export-menu" style="display:none">
+          <div class="export-menu-item" onclick="exportMaster()">📦 Export Master List</div>
+          <div class="export-menu-sep"></div>
+          <div class="export-menu-item" onclick="exportShopping()">🛒 Export Shopping List</div>
+        </div>
+      </div>
+      <div class="export-wrap">
+        <button class="icon-btn" id="btn-import-menu-toggle">⬆<span class="tip">Import</span></button>
+        <div class="export-menu" id="import-menu" style="display:none">
+          <div class="export-menu-item" onclick="importMaster()">📦 Import Master List</div>
+          <div class="export-menu-sep"></div>
+          <div class="export-menu-item" onclick="importShopping()">🛒 Import Shopping List</div>
+        </div>
+      </div>
     </div>
   </header>
   <div id="tabs">
@@ -158,30 +160,22 @@ function loadState(){
   if(!state.shoppingDone)state.shoppingDone={};
 }
 function saveState(){localStorage.setItem(STORE_KEY,JSON.stringify(state));}
-
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-
 function fmtDate(){
   const d=new Date();
-  const dd=String(d.getDate()).padStart(2,'0');
-  const mm=String(d.getMonth()+1).padStart(2,'0');
-  const yy=String(d.getFullYear()).slice(2);
-  const hh=String(d.getHours()).padStart(2,'0');
-  const min=String(d.getMinutes()).padStart(2,'0');
+  const dd=String(d.getDate()).padStart(2,'0'),mm=String(d.getMonth()+1).padStart(2,'0'),yy=String(d.getFullYear()).slice(2);
+  const hh=String(d.getHours()).padStart(2,'0'),min=String(d.getMinutes()).padStart(2,'0');
   return `${dd}-${mm}-${yy} ${hh}${min}`;
 }
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-/* ---- RENDER ---- */
-function render(){
-  currentTab==='shopping'?renderShopping():renderMaster();
-}
+function render(){currentTab==='shopping'?renderShopping():renderMaster();}
 
 /* ======= SHOPPING LIST ======= */
 function renderShopping(){
   document.getElementById('header-title').textContent='🛒 Shopping List';
-  const cats=state.categories;
   const allItems=[];
-  cats.forEach(c=>c.subcategories&&c.subcategories.forEach(sc=>sc.items&&sc.items.forEach(it=>{
+  state.categories.forEach(c=>c.subcategories&&c.subcategories.forEach(sc=>sc.items&&sc.items.forEach(it=>{
     if(it.ticked)allItems.push({...it,catName:c.name,scName:sc.name,catId:c.id,scId:sc.id});
   })));
 
@@ -189,21 +183,19 @@ function renderShopping(){
     document.getElementById('content').innerHTML=`
       <div class="action-bar"><div class="spacer"></div><button class="btn btn-danger btn-sm" id="sl-reset">↺ Reset</button></div>
       <div class="empty"><div class="empty-icon">🛒</div><p>No items ticked in Master.<br>Tick items to add them here.</p></div>`;
-    document.getElementById('sl-reset').onclick=()=>resetShoppingList();
+    document.getElementById('sl-reset').onclick=resetShoppingList;
     return;
   }
 
   const grouped={};
   allItems.forEach(it=>{
-    const k=it.catId;
-    if(!grouped[k])grouped[k]={catName:it.catName,subs:{}};
-    const sk=it.scId;
-    if(!grouped[k].subs[sk])grouped[k].subs[sk]={scName:it.scName,items:[]};
-    grouped[k].subs[sk].items.push(it);
+    if(!grouped[it.catId])grouped[it.catId]={catName:it.catName,subs:{}};
+    if(!grouped[it.catId].subs[it.scId])grouped[it.catId].subs[it.scId]={scName:it.scName,items:[]};
+    grouped[it.catId].subs[it.scId].items.push(it);
   });
 
   const sortedCats=Object.keys(grouped).sort((a,b)=>grouped[a].catName.localeCompare(grouped[b].catName));
-  let total=allItems.length,done=allItems.filter(it=>state.shoppingDone[it.id]).length;
+  const total=allItems.length,done=allItems.filter(it=>state.shoppingDone[it.id]).length;
 
   let html=`<div class="action-bar">
     <span style="font-size:13px;color:var(--text2)"><b>${done}</b>/${total} done</span>
@@ -215,28 +207,23 @@ function renderShopping(){
     const cg=grouped[cid];
     const sortedSubs=Object.keys(cg.subs).sort((a,b)=>cg.subs[a].scName.localeCompare(cg.subs[b].scName));
     const catDone=sortedSubs.every(sid=>cg.subs[sid].items.every(it=>state.shoppingDone[it.id]));
-    html+=`<div class="card">
-      <div class="card-header" onclick="toggleSection('slcat-${cid}')">
-        <span class="card-title">${esc(cg.catName)}</span>
-        ${catDone?'<span class="badge badge-green">✓</span>':''}
-        <span class="chevron open" id="chev-slcat-${cid}">▶</span>
-      </div>
-      <div id="slcat-${cid}" class="card-body">`;
+    html+=`<div class="card"><div class="card-header" onclick="toggleSection('slcat-${cid}')">
+      <span class="card-title">${esc(cg.catName)}</span>
+      ${catDone?'<span class="badge badge-green">✓</span>':''}
+      <span class="chevron open" id="chev-slcat-${cid}">▶</span>
+    </div><div id="slcat-${cid}" class="card-body">`;
     sortedSubs.forEach(sid=>{
       const sg=cg.subs[sid];
       const sortedItems=[...sg.items].sort((a,b)=>a.name.localeCompare(b.name));
-      html+=`<div class="subcat-section">
-        <div class="subcat-header" onclick="toggleSection('slsc-${sid}')">
-          <span class="subcat-title">${esc(sg.scName)}</span>
-          <span class="chevron open" id="chev-slsc-${sid}">▶</span>
-        </div>
-        <div id="slsc-${sid}" class="subcat-body">`;
+      html+=`<div class="subcat-section"><div class="subcat-header" onclick="toggleSection('slsc-${sid}')">
+        <span class="subcat-title">${esc(sg.scName)}</span>
+        <span class="chevron open" id="chev-slsc-${sid}">▶</span>
+      </div><div id="slsc-${sid}" class="subcat-body">`;
       sortedItems.forEach(it=>{
-        const done2=!!state.shoppingDone[it.id];
-        html+=`<div class="sl-item${done2?' sl-done':''}">
-          <input type="checkbox" class="sl-check" ${done2?'checked':''} onchange="toggleShoppingDone('${it.id}',this.checked)">
-          <span class="sl-label">${esc(it.name)}${it.qty?`<span class="sl-qty">${esc(it.qty)} ${esc(it.uom||'')}</span>`:''}
-          </span>
+        const d=!!state.shoppingDone[it.id];
+        html+=`<div class="sl-item${d?' sl-done':''}">
+          <input type="checkbox" class="sl-check" ${d?'checked':''} onchange="toggleShoppingDone('${it.id}',this.checked)">
+          <span class="sl-label">${esc(it.name)}${it.qty?`<span class="sl-qty">${esc(it.qty)} ${esc(it.uom||'')}</span>`:''}</span>
         </div>`;
       });
       html+=`</div></div>`;
@@ -245,12 +232,11 @@ function renderShopping(){
   });
 
   document.getElementById('content').innerHTML=html;
-  document.getElementById('sl-reset').onclick=()=>resetShoppingList();
+  document.getElementById('sl-reset').onclick=resetShoppingList;
 }
 
 function toggleShoppingDone(id,val){
-  if(val)state.shoppingDone[id]=true;
-  else delete state.shoppingDone[id];
+  if(val)state.shoppingDone[id]=true;else delete state.shoppingDone[id];
   saveState();renderShopping();
 }
 function resetShoppingList(){
@@ -267,14 +253,10 @@ function renderMaster(){
   if(currentCatId){renderCatDetail();return;}
   renderCatGrid();
 }
-
 function renderCatGrid(){
-  document.getElementById('master-detail') && (document.getElementById('master-detail').style.display='none');
   const cats=state.categories;
-  let html=`<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Search items..." value="${esc(searchQ)}" oninput="onSearch(this.value)" id="search-input"></div>`;
-
+  let html=`<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Search items..." value="${esc(searchQ)}" oninput="onSearch(this.value)"></div>`;
   if(searchQ.trim()){renderSearchResults(html);return;}
-
   html+=`<div class="cat-grid">`;
   cats.forEach(c=>{
     const total=c.subcategories&&c.subcategories.reduce((a,sc)=>a+(sc.items?sc.items.length:0),0)||0;
@@ -290,7 +272,6 @@ function renderCatGrid(){
   </div></div>`;
   document.getElementById('content').innerHTML=html;
 }
-
 function renderSearchResults(prefix){
   const q=searchQ.trim().toLowerCase();
   let html=prefix;
@@ -304,29 +285,25 @@ function renderSearchResults(prefix){
     results.forEach(it=>{
       html+=`<div class="card"><div class="item-row" style="padding:12px 14px">
         <input type="checkbox" class="item-check" ${it.ticked?'checked':''} onchange="tickItem('${it.catId}','${it.scId}','${it.id}',this.checked)">
-        <span class="item-label ${it.ticked?'checked-label':''}">${esc(it.name)}<span class="uom">${it.qty||''}${it.uom?' '+esc(it.uom):''}</span><br><span style="font-size:11px;color:var(--text3)">${esc(it.catName)} › ${esc(it.scName)}</span></span>
+        <span class="item-label ${it.ticked?'checked-label':''}">${esc(it.name)}<span class="uom">${it.qty||''}${it.uom?' '+esc(it.uom):''}</span><br>
+          <span style="font-size:11px;color:var(--text3)">${esc(it.catName)} › ${esc(it.scName)}</span></span>
         <button class="item-delete" onclick="deleteItem('${it.catId}','${it.scId}','${it.id}')">🗑</button>
       </div></div>`;
     });
   }
   document.getElementById('content').innerHTML=html;
 }
-
 function onSearch(v){searchQ=v;renderMaster();}
-
 function openCat(id){currentCatId=id;renderMaster();}
-
 function renderCatDetail(){
   const cat=state.categories.find(c=>c.id===currentCatId);
   if(!cat){currentCatId=null;renderMaster();return;}
   let html=`<button class="back-btn" onclick="backToGrid()">◀ All Categories</button>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
     <h2 style="font-size:16px;font-weight:600">${cat.icon||'📁'} ${esc(cat.name)}</h2>
-    <button class="btn btn-danger btn-xs" onclick="deleteCat('${cat.id}')">Delete Cat</button>
+    <button class="btn btn-danger btn-xs" onclick="deleteCat('${cat.id}')">Delete</button>
   </div>`;
-
-  const subs=cat.subcategories||[];
-  subs.forEach(sc=>{
+  (cat.subcategories||[]).forEach(sc=>{
     const items=sc.items||[];
     html+=`<div class="card" style="margin-bottom:10px">
       <div class="card-header" onclick="toggleSection('sc-${sc.id}')">
@@ -344,18 +321,14 @@ function renderCatDetail(){
       </div>`;
     });
     html+=`<div class="add-row"><button class="btn btn-outline btn-sm" onclick="showAddItem('${cat.id}','${sc.id}')">+ Add Item</button></div>
-      </div></div>`;
+    </div></div>`;
   });
-
   html+=`<div class="add-row"><button class="btn btn-primary btn-sm" onclick="showAddSubcat('${cat.id}')">+ Add Subcategory</button></div>`;
   document.getElementById('content').innerHTML=html;
 }
-
 function backToGrid(){currentCatId=null;renderMaster();}
-
 function toggleSection(id){
-  const el=document.getElementById(id);
-  const ch=document.getElementById('chev-'+id);
+  const el=document.getElementById(id),ch=document.getElementById('chev-'+id);
   if(!el)return;
   const hidden=el.classList.toggle('collapsed');
   if(ch)ch.classList.toggle('open',!hidden);
@@ -374,7 +347,7 @@ function closeModal(){const m=document.getElementById('modal-overlay');if(m)m.re
 function showAddCat(){
   showModal(`<h3>New Category</h3>
     <div class="modal-row"><input id="m-cat-name" placeholder="Category name" autofocus></div>
-    <div class="modal-row"><input id="m-cat-icon" placeholder="Icon emoji (optional)" style="max-width:80px">
+    <div class="modal-row"><input id="m-cat-icon" placeholder="Icon emoji" style="max-width:80px">
     <select id="m-cat-icon-pick" onchange="document.getElementById('m-cat-icon').value=this.value" style="flex:1">
       <option value="">Pick icon</option>
       ${['🥦','🍖','🥛','🧁','🧴','🏠','👕','📦','🐾','💊','🍹','🛒'].map(i=>`<option value="${i}">${i}</option>`).join('')}
@@ -424,7 +397,6 @@ function deleteSubcat(cid,sid){
   }
 }
 function showAddItem(cid,sid){
-  const cat=state.categories.find(c=>c.id===cid);
   showModal(`<h3>New Item</h3>
     <div class="modal-row"><input id="m-it-name" placeholder="Item name" autofocus></div>
     <div class="modal-row">
@@ -454,15 +426,11 @@ function addItem(cid,sid){
   sc.items.push({id:genId(),name,qty,uom,ticked:false});
   saveState();closeModal();renderCatDetail();
 }
-function confirmDeleteItem(cid,sid,iid,name){
-  if(confirm(`Delete "${name}"?`))deleteItem(cid,sid,iid);
-}
+function confirmDeleteItem(cid,sid,iid,name){if(confirm(`Delete "${name}"?`))deleteItem(cid,sid,iid);}
 function deleteItem(cid,sid,iid){
   const cat=state.categories.find(c=>c.id===cid);
-  if(!cat)return;
-  const sc=cat.subcategories&&cat.subcategories.find(s=>s.id===sid);
-  if(!sc)return;
-  sc.items=sc.items.filter(i=>i.id!==iid);
+  const sc=cat&&cat.subcategories&&cat.subcategories.find(s=>s.id===sid);
+  if(sc)sc.items=sc.items.filter(i=>i.id!==iid);
   delete state.shoppingDone[iid];
   saveState();renderMaster();
 }
@@ -473,61 +441,138 @@ function tickItem(cid,sid,iid,val){
   if(it){it.ticked=val;saveState();}
 }
 
-/* ---- EXPORT / IMPORT ---- */
-function exportCSV(){
-  const rows=[['Category','Subcategory','Item','Qty','UOM','Ticked']];
-  state.categories.forEach(c=>c.subcategories&&c.subcategories.forEach(sc=>sc.items&&sc.items.forEach(it=>{
-    rows.push([c.name,sc.name,it.name,it.qty||'',it.uom||'',it.ticked?'1':'0']);
-  })));
-  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+/* ======= EXPORT ======= */
+function toCSV(rows){return rows.map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');}
+function downloadCSV(csv,name){
   const blob=new Blob([csv],{type:'text/csv'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=`ShopList_${fmtDate().replace(':','')}.csv`;a.click();
+  const a=document.createElement('a');a.href=url;a.download=name;a.click();
   URL.revokeObjectURL(url);
 }
-function importCSV(){
-  const input=document.createElement('input');
-  input.type='file';input.accept='.csv';
-  input.onchange=e=>{
-    const f=e.target.files[0];if(!f)return;
-    const r=new FileReader();
-    r.onload=ev=>{
-      try{
-        const lines=ev.target.result.split('\n').filter(l=>l.trim());
-        lines.shift();
-        lines.forEach(line=>{
-          const cols=line.match(/(".*?"|[^,]+)(?=,|$)/g)||[];
-          const clean=cols.map(c=>c.replace(/^"|"$/g,'').replace(/""/g,'"'));
-          const [catName,scName,itName,qty,uom,ticked]=clean;
-          if(!catName||!scName||!itName)return;
-          let cat=state.categories.find(c=>c.name===catName);
-          if(!cat){cat={id:genId(),name:catName,icon:'📁',subcategories:[]};state.categories.push(cat);}
-          let sc=cat.subcategories.find(s=>s.name===scName);
-          if(!sc){sc={id:genId(),name:scName,items:[]};cat.subcategories.push(sc);}
-          if(!sc.items.find(i=>i.name===itName))
-            sc.items.push({id:genId(),name:itName,qty:qty||'',uom:uom||'',ticked:ticked==='1'});
-        });
-        saveState();render();alert('Import complete!');
-      }catch(e){alert('Import failed: '+e.message);}
-    };r.readAsText(f);
-  };input.click();
+
+function exportMaster(){
+  closeExportMenu();
+  const rows=[['Category','Icon','Subcategory','Item','Qty','UOM','Ticked']];
+  state.categories.forEach(c=>(c.subcategories||[]).forEach(sc=>(sc.items||[]).forEach(it=>{
+    rows.push([c.name,c.icon||'',sc.name,it.name,it.qty||'',it.uom||'',it.ticked?'1':'0']);
+  })));
+  downloadCSV(toCSV(rows),`ShopList_Master_${fmtDate()}.csv`);
 }
 
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function exportShopping(){
+  closeExportMenu();
+  // collect ticked items with done status
+  const rows=[['Category','Subcategory','Item','Qty','UOM','Done']];
+  state.categories.forEach(c=>(c.subcategories||[]).forEach(sc=>(sc.items||[]).forEach(it=>{
+    if(it.ticked)rows.push([c.name,sc.name,it.name,it.qty||'',it.uom||'',state.shoppingDone[it.id]?'1':'0']);
+  })));
+  downloadCSV(toCSV(rows),`ShopList_Shopping_${fmtDate()}.csv`);
+}
 
-/* ---- TABS ---- */
+/* ======= IMPORT ======= */
+function parseCSVLine(line){
+  const cols=[];let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
+    else if(ch===','&&!inQ){cols.push(cur);cur='';}
+    else cur+=ch;
+  }
+  cols.push(cur);return cols;
+}
+
+function importMaster(){
+  closeExportMenu();
+  pickFile(text=>{
+    const lines=text.split('\n').filter(l=>l.trim());
+    const header=parseCSVLine(lines[0]).map(h=>h.trim().toLowerCase());
+    const ci=header.indexOf('category'),ii=header.indexOf('icon'),si=header.indexOf('subcategory'),
+          ni=header.indexOf('item'),qi=header.indexOf('qty'),ui=header.indexOf('uom'),ti=header.indexOf('ticked');
+    let added=0;
+    lines.slice(1).forEach(line=>{
+      const c=parseCSVLine(line);
+      const catName=c[ci]&&c[ci].trim(),icon=ii>=0&&c[ii]?c[ii].trim():'📁',
+            scName=c[si]&&c[si].trim(),itName=c[ni]&&c[ni].trim();
+      if(!catName||!scName||!itName)return;
+      let cat=state.categories.find(x=>x.name===catName);
+      if(!cat){cat={id:genId(),name:catName,icon,subcategories:[]};state.categories.push(cat);}
+      let sc=cat.subcategories.find(x=>x.name===scName);
+      if(!sc){sc={id:genId(),name:scName,items:[]};cat.subcategories.push(sc);}
+      if(!sc.items.find(x=>x.name===itName)){
+        sc.items.push({id:genId(),name:itName,qty:qi>=0?c[qi]||'':'',uom:ui>=0?c[ui]||'':'',ticked:ti>=0&&c[ti]==='1'});
+        added++;
+      }
+    });
+    saveState();render();alert(`Master import complete! ${added} new item(s) added.`);
+  });
+}
+
+function importShopping(){
+  closeExportMenu();
+  pickFile(text=>{
+    const lines=text.split('\n').filter(l=>l.trim());
+    const header=parseCSVLine(lines[0]).map(h=>h.trim().toLowerCase());
+    const ci=header.indexOf('category'),si=header.indexOf('subcategory'),
+          ni=header.indexOf('item'),qi=header.indexOf('qty'),ui=header.indexOf('uom'),di=header.indexOf('done');
+    let ticked=0,marked=0;
+    lines.slice(1).forEach(line=>{
+      const col=parseCSVLine(line);
+      const catName=col[ci]&&col[ci].trim(),scName=col[si]&&col[si].trim(),itName=col[ni]&&col[ni].trim();
+      if(!catName||!scName||!itName)return;
+      // find or create cat/subcat/item
+      let cat=state.categories.find(x=>x.name===catName);
+      if(!cat){cat={id:genId(),name:catName,icon:'📁',subcategories:[]};state.categories.push(cat);}
+      let sc=cat.subcategories.find(x=>x.name===scName);
+      if(!sc){sc={id:genId(),name:scName,items:[]};cat.subcategories.push(sc);}
+      let it=sc.items.find(x=>x.name===itName);
+      if(!it){it={id:genId(),name:itName,qty:qi>=0?col[qi]||'':'',uom:ui>=0?col[ui]||'':''};sc.items.push(it);ticked++;}
+      it.ticked=true;
+      if(di>=0&&col[di]==='1'){state.shoppingDone[it.id]=true;marked++;}
+      else delete state.shoppingDone[it.id];
+    });
+    saveState();render();alert(`Shopping list imported! ${ticked} item(s) ticked, ${marked} marked done.`);
+  });
+}
+
+function pickFile(cb){
+  const inp=document.createElement('input');inp.type='file';inp.accept='.csv';
+  inp.onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();r.onload=ev=>{try{cb(ev.target.result);}catch(err){alert('Import failed: '+err.message);}};
+    r.readAsText(f);
+  };inp.click();
+}
+
+/* ---- MENUS ---- */
+function closeExportMenu(){
+  document.getElementById('export-menu').style.display='none';
+  document.getElementById('import-menu').style.display='none';
+}
+document.getElementById('btn-export-toggle').onclick=e=>{
+  e.stopPropagation();
+  const m=document.getElementById('export-menu');
+  const visible=m.style.display==='block';
+  closeExportMenu();
+  if(!visible)m.style.display='block';
+};
+document.getElementById('btn-import-menu-toggle').onclick=e=>{
+  e.stopPropagation();
+  const m=document.getElementById('import-menu');
+  const visible=m.style.display==='block';
+  closeExportMenu();
+  if(!visible)m.style.display='block';
+};
+document.addEventListener('click',closeExportMenu);
+
+// remove old unused import button
+document.getElementById('btn-import-toggle').remove();
+
 document.querySelectorAll('.tab').forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    currentTab=t.dataset.tab;
-    currentCatId=null;searchQ='';
-    render();
+    t.classList.add('active');currentTab=t.dataset.tab;currentCatId=null;searchQ='';render();
   };
 });
-document.getElementById('btn-export').onclick=exportCSV;
-document.getElementById('btn-import').onclick=importCSV;
 
 loadState();render();
 </script>
