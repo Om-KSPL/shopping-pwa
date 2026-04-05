@@ -1,0 +1,27 @@
+build a pwa that use my phone storage to store its data
+
+this shopping app will have following tabs
+
+- Shipping list
+- Master
+
+Master will have show following options
+- Grid of Category with a button to add new category
+- Each grid will open collapsible cards for sub category and a button to add new
+- Each sub category cards will have a list of items with a tick box to shortlist and an option to add new item like todo apps, items should be deletable with confirmation, keep tick box and delete on opposite side for better UX
+- Items will have option for unit and UOM
+- Make sure items unique in its main category
+- items should be searchable
+- All ticked items should be shown in shopping list.
+
+Shipping list will have show following options
+
+- Show collapsible categories and subcategory and by default it should be open. categories and subcategory should be shown ordered alphabaticly
+- All items should be shown ordered alphabaticly in its subcategory
+- items should be marked and it should considered done and deactivated from the list
+- We should hv option to reset the complete list wiht confirmation.
+- List should persists in local storage
+
+both shopping list and master should be exportable and impotable in csv format 
+exported file name should contain date and time in dd-mm-yy hh:mm format
+
