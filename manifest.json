@@ -2,7 +2,7 @@
   "name": "ShopList",
   "short_name": "ShopList",
   "description": "Smart shopping list manager",
-  "start_url": "./",
+  "start_url": "./shopping-pwa/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0e7490",
