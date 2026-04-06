@@ -65,7 +65,9 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(1
 .checked-label{text-decoration:line-through;color:var(--text3)}
 
 .search-wrap{position:relative;margin-bottom:12px}
-.search-wrap input{padding-left:36px}
+.search-wrap input{padding-left:36px;padding-right:32px}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;line-height:1;padding:2px;display:none}
+.search-clear.visible{display:block}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
 
 .badge{background:var(--primary);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center}
@@ -155,6 +157,7 @@ let state={categories:[],shoppingDone:{}};
 let currentTab='shopping';
 let currentCatId=null;
 let searchQ='';
+let slSearchQ='';
 
 function loadState(){
   try{const s=localStorage.getItem(STORE_KEY);if(s)state=JSON.parse(s);}catch(e){}
@@ -181,30 +184,59 @@ function renderShopping(){
     if(it.ticked)allItems.push({...it,catName:c.name,scName:sc.name,catId:c.id,scId:sc.id});
   })));
 
+  const content=document.getElementById('content');
+
   if(!allItems.length){
-    document.getElementById('content').innerHTML=`
+    content.innerHTML=`
       <div class="action-bar"><div class="spacer"></div><button class="btn btn-danger btn-sm" id="sl-reset">↺ Reset</button></div>
       <div class="empty"><div class="empty-icon">🛒</div><p>No items ticked in Master.<br>Tick items to add them here.</p></div>`;
     document.getElementById('sl-reset').onclick=resetShoppingList;
     return;
   }
 
+  if(!document.getElementById('sl-search')){
+    const total=allItems.length,done=allItems.filter(it=>state.shoppingDone[it.id]).length;
+    content.innerHTML=`
+      <div class="action-bar">
+        <span style="font-size:13px;color:var(--text2)" id="sl-progress"><b>${done}</b>/${total} done</span>
+        <div class="spacer"></div>
+        <button class="btn btn-danger btn-sm" id="sl-reset">↺ Reset List</button>
+      </div>
+      <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="sl-search" placeholder="Search shopping list..." autocomplete="off"><button class="search-clear" id="sl-search-clear" onclick="clearSlSearch()">✕</button></div>
+      <div id="sl-body"></div>`;
+    document.getElementById('sl-reset').onclick=resetShoppingList;
+    const inp=document.getElementById('sl-search');
+    inp.value=slSearchQ;
+    updateClearBtn('sl-search-clear',slSearchQ);
+    inp.addEventListener('input',e=>{slSearchQ=e.target.value;updateClearBtn('sl-search-clear',slSearchQ);renderSlBody(allItems);});
+  } else {
+    const total=allItems.length,done=allItems.filter(it=>state.shoppingDone[it.id]).length;
+    const prog=document.getElementById('sl-progress');
+    if(prog)prog.innerHTML=`<b>${done}</b>/${total} done`;
+  }
+  renderSlBody(allItems);
+}
+
+function renderSlBody(allItems){
+  const body=document.getElementById('sl-body');
+  if(!body)return;
+  const q=slSearchQ.trim().toLowerCase();
+  const filtered=q?allItems.filter(it=>it.name.toLowerCase().includes(q)||it.catName.toLowerCase().includes(q)||it.scName.toLowerCase().includes(q)):allItems;
+
+  if(!filtered.length){
+    body.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><p>No items found for "${esc(slSearchQ)}"</p></div>`;
+    return;
+  }
+
   const grouped={};
-  allItems.forEach(it=>{
+  filtered.forEach(it=>{
     if(!grouped[it.catId])grouped[it.catId]={catName:it.catName,subs:{}};
     if(!grouped[it.catId].subs[it.scId])grouped[it.catId].subs[it.scId]={scName:it.scName,items:[]};
     grouped[it.catId].subs[it.scId].items.push(it);
   });
 
   const sortedCats=Object.keys(grouped).sort((a,b)=>grouped[a].catName.localeCompare(grouped[b].catName));
-  const total=allItems.length,done=allItems.filter(it=>state.shoppingDone[it.id]).length;
-
-  let html=`<div class="action-bar">
-    <span style="font-size:13px;color:var(--text2)"><b>${done}</b>/${total} done</span>
-    <div class="spacer"></div>
-    <button class="btn btn-danger btn-sm" id="sl-reset">↺ Reset List</button>
-  </div>`;
-
+  let html='';
   sortedCats.forEach(cid=>{
     const cg=grouped[cid];
     const sortedSubs=Object.keys(cg.subs).sort((a,b)=>cg.subs[a].scName.localeCompare(cg.subs[b].scName));
@@ -232,9 +264,19 @@ function renderShopping(){
     });
     html+=`</div></div>`;
   });
+  body.innerHTML=html;
+}
 
-  document.getElementById('content').innerHTML=html;
-  document.getElementById('sl-reset').onclick=resetShoppingList;
+function clearSlSearch(){
+  slSearchQ='';
+  const inp=document.getElementById('sl-search');
+  if(inp){inp.value='';inp.focus();}
+  updateClearBtn('sl-search-clear','');
+  const allItems=[];
+  state.categories.forEach(c=>c.subcategories&&c.subcategories.forEach(sc=>sc.items&&sc.items.forEach(it=>{
+    if(it.ticked)allItems.push({...it,catName:c.name,scName:sc.name,catId:c.id,scId:sc.id});
+  })));
+  renderSlBody(allItems);
 }
 
 function toggleShoppingDone(id,val){
@@ -259,11 +301,12 @@ function renderCatGrid(){
   const content=document.getElementById('content');
   // Only do full render if search box doesn't already exist
   if(!document.getElementById('master-search')){
-    content.innerHTML=`<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="master-search" placeholder="Search items..." autocomplete="off"></div><div id="master-body"></div>`;
+    content.innerHTML=`<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="master-search" placeholder="Search items..." autocomplete="off"><button class="search-clear" id="master-search-clear" onclick="clearSearch()">✕</button></div><div id="master-body"></div>`;
     const inp=document.getElementById('master-search');
     inp.value=searchQ;
-    inp.addEventListener('input',e=>{searchQ=e.target.value;renderMasterBody();});
+    inp.addEventListener('input',e=>{searchQ=e.target.value;updateClearBtn('master-search-clear',searchQ);renderMasterBody();});
     inp.addEventListener('focus',()=>{if(searchQ)renderMasterBody();});
+    updateClearBtn('master-search-clear',searchQ);
   }
   renderMasterBody();
 }
@@ -305,22 +348,54 @@ function buildSearchResults(){
   });
   return html;
 }
+function updateClearBtn(id,val){const b=document.getElementById(id);if(b)b.classList.toggle('visible',!!val);}
+function clearSearch(){
+  searchQ='';
+  const inp=document.getElementById('master-search');
+  if(inp){inp.value='';inp.focus();}
+  updateClearBtn('master-search-clear','');
+  currentCatId?renderCatDetailBody(state.categories.find(c=>c.id===currentCatId)):renderMasterBody();
+}
 function onSearch(v){searchQ=v;renderMasterBody();}
 function openCat(id){currentCatId=id;renderMaster();}
 function renderCatDetail(){
   const cat=state.categories.find(c=>c.id===currentCatId);
   if(!cat){currentCatId=null;renderMaster();return;}
+
+  // preserve search input focus if already rendered
+  const existingSearch=document.getElementById('master-search');
+  const prevQ=existingSearch?existingSearch.value:searchQ;
+
   let html=`<button class="back-btn" onclick="backToGrid()">◀ All Categories</button>
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
     <h2 style="font-size:16px;font-weight:600">${cat.icon||'📁'} ${esc(cat.name)}</h2>
     <button class="btn btn-danger btn-xs" onclick="deleteCat('${cat.id}')">Delete</button>
-  </div>`;
+  </div>
+  <div class="search-wrap" style="margin-bottom:12px"><span class="search-icon">🔍</span><input type="text" id="master-search" placeholder="Search items in ${esc(cat.name)}..." autocomplete="off" value="${esc(prevQ)}"><button class="search-clear${prevQ?' visible':''}" id="master-search-clear" onclick="clearSearch()">✕</button></div>
+  <div id="master-body"></div>`;
+  document.getElementById('content').innerHTML=html;
+
+  // attach search listener
+  const inp=document.getElementById('master-search');
+  inp.addEventListener('input',e=>{searchQ=e.target.value;updateClearBtn('master-search-clear',searchQ);renderCatDetailBody(cat);});
+
+  renderCatDetailBody(cat);
+}
+
+function renderCatDetailBody(cat){
+  const body=document.getElementById('master-body');
+  if(!body)return;
+  const q=searchQ.trim().toLowerCase();
+  let html='';
+
   (cat.subcategories||[]).forEach(sc=>{
-    const items=sc.items||[];
+    const allItems=sc.items||[];
+    const items=q?allItems.filter(it=>it.name.toLowerCase().includes(q)):allItems;
+    if(q&&!items.length)return;
     html+=`<div class="card" style="margin-bottom:10px">
       <div class="card-header" onclick="toggleSection('sc-${sc.id}')">
         <span class="card-title">${esc(sc.name)}</span>
-        <span class="badge">${items.filter(i=>i.ticked).length}/${items.length}</span>
+        <span class="badge">${allItems.filter(i=>i.ticked).length}/${allItems.length}</span>
         <button class="btn btn-danger btn-xs" style="margin-left:4px" onclick="event.stopPropagation();deleteSubcat('${cat.id}','${sc.id}')">✕</button>
         <span class="chevron open" id="chev-sc-${sc.id}" style="margin-left:4px">▶</span>
       </div>
@@ -335,8 +410,10 @@ function renderCatDetail(){
     html+=`<div class="add-row"><button class="btn btn-outline btn-sm" onclick="showAddItem('${cat.id}','${sc.id}')">+ Add Item</button></div>
     </div></div>`;
   });
+
+  if(q&&!html) html=`<div class="empty"><div class="empty-icon">🔍</div><p>No items found for "${esc(searchQ)}"</p></div>`;
   html+=`<div class="add-row"><button class="btn btn-primary btn-sm" onclick="showAddSubcat('${cat.id}')">+ Add Subcategory</button></div>`;
-  document.getElementById('content').innerHTML=html;
+  body.innerHTML=html;
 }
 function backToGrid(){currentCatId=null;renderMaster();}
 function toggleSection(id){
@@ -582,7 +659,7 @@ document.getElementById('btn-import-toggle').remove();
 document.querySelectorAll('.tab').forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');currentTab=t.dataset.tab;currentCatId=null;searchQ='';render();
+    t.classList.add('active');currentTab=t.dataset.tab;currentCatId=null;searchQ='';slSearchQ='';render();
   };
 });
 
