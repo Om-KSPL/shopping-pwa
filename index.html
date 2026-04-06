@@ -7,28 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ShopList">
-<title>ShopList</title>
-<!-- Add these tags inside <head> of your index.html -->
-
 <link rel="manifest" href="./manifest.json">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ShopList">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<meta name="theme-color" content="#0e7490">
-
-<!-- Add this script just before </body> -->
-
-<script>
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>{
-      navigator.serviceWorker.register('./sw.js')
-        .then(r=>console.log('SW registered:',r.scope))
-        .catch(e=>console.error('SW failed:',e));
-    });
-  }
-</script>
+<title>ShopList</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -275,10 +256,23 @@ function renderMaster(){
   renderCatGrid();
 }
 function renderCatGrid(){
+  const content=document.getElementById('content');
+  // Only do full render if search box doesn't already exist
+  if(!document.getElementById('master-search')){
+    content.innerHTML=`<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="master-search" placeholder="Search items..." autocomplete="off"></div><div id="master-body"></div>`;
+    const inp=document.getElementById('master-search');
+    inp.value=searchQ;
+    inp.addEventListener('input',e=>{searchQ=e.target.value;renderMasterBody();});
+    inp.addEventListener('focus',()=>{if(searchQ)renderMasterBody();});
+  }
+  renderMasterBody();
+}
+function renderMasterBody(){
+  const body=document.getElementById('master-body');
+  if(!body)return;
+  if(searchQ.trim()){body.innerHTML=buildSearchResults();return;}
   const cats=state.categories;
-  let html=`<div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Search items..." value="${esc(searchQ)}" oninput="onSearch(this.value)"></div>`;
-  if(searchQ.trim()){renderSearchResults(html);return;}
-  html+=`<div class="cat-grid">`;
+  let html=`<div class="cat-grid">`;
   cats.forEach(c=>{
     const total=c.subcategories&&c.subcategories.reduce((a,sc)=>a+(sc.items?sc.items.length:0),0)||0;
     const ticked=c.subcategories&&c.subcategories.reduce((a,sc)=>a+(sc.items?sc.items.filter(i=>i.ticked).length:0),0)||0;
@@ -291,30 +285,27 @@ function renderCatGrid(){
   html+=`<div class="cat-card" style="border:1.5px dashed var(--border);background:#fafafa" onclick="showAddCat()">
     <div class="cat-icon">➕</div><div class="cat-name" style="color:var(--text2)">Add Category</div>
   </div></div>`;
-  document.getElementById('content').innerHTML=html;
+  body.innerHTML=html;
 }
-function renderSearchResults(prefix){
+function buildSearchResults(){
   const q=searchQ.trim().toLowerCase();
-  let html=prefix;
   const results=[];
   state.categories.forEach(c=>c.subcategories&&c.subcategories.forEach(sc=>sc.items&&sc.items.forEach(it=>{
     if(it.name.toLowerCase().includes(q))results.push({...it,catName:c.name,scName:sc.name,catId:c.id,scId:sc.id});
   })));
-  if(!results.length){html+=`<div class="empty"><div class="empty-icon">🔍</div><p>No items found for "${esc(searchQ)}"</p></div>`;}
-  else{
-    html+=`<div class="section-label">${results.length} result${results.length>1?'s':''}</div>`;
-    results.forEach(it=>{
-      html+=`<div class="card"><div class="item-row" style="padding:12px 14px">
-        <input type="checkbox" class="item-check" ${it.ticked?'checked':''} onchange="tickItem('${it.catId}','${it.scId}','${it.id}',this.checked)">
-        <span class="item-label ${it.ticked?'checked-label':''}">${esc(it.name)}<span class="uom">${it.qty||''}${it.uom?' '+esc(it.uom):''}</span><br>
-          <span style="font-size:11px;color:var(--text3)">${esc(it.catName)} › ${esc(it.scName)}</span></span>
-        <button class="item-delete" onclick="deleteItem('${it.catId}','${it.scId}','${it.id}')">🗑</button>
-      </div></div>`;
-    });
-  }
-  document.getElementById('content').innerHTML=html;
+  if(!results.length)return`<div class="empty"><div class="empty-icon">🔍</div><p>No items found for "${esc(searchQ)}"</p></div>`;
+  let html=`<div class="section-label">${results.length} result${results.length>1?'s':''}</div>`;
+  results.forEach(it=>{
+    html+=`<div class="card"><div class="item-row" style="padding:12px 14px">
+      <input type="checkbox" class="item-check" ${it.ticked?'checked':''} onchange="tickItem('${it.catId}','${it.scId}','${it.id}',this.checked)">
+      <span class="item-label ${it.ticked?'checked-label':''}">${esc(it.name)}<span class="uom">${it.qty||''}${it.uom?' '+esc(it.uom):''}</span><br>
+        <span style="font-size:11px;color:var(--text3)">${esc(it.catName)} › ${esc(it.scName)}</span></span>
+      <button class="item-delete" onclick="deleteItem('${it.catId}','${it.scId}','${it.id}')">🗑</button>
+    </div></div>`;
+  });
+  return html;
 }
-function onSearch(v){searchQ=v;renderMaster();}
+function onSearch(v){searchQ=v;renderMasterBody();}
 function openCat(id){currentCatId=id;renderMaster();}
 function renderCatDetail(){
   const cat=state.categories.find(c=>c.id===currentCatId);
@@ -596,6 +587,14 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 
 loadState();render();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js')
+      .then(r=>console.log('SW registered:',r.scope))
+      .catch(e=>console.error('SW failed:',e));
+  });
+}
 </script>
 </body>
 </html>
